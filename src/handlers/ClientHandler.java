@@ -14,6 +14,9 @@ public class ClientHandler extends Thread {
 	private Socket socket;
 	private PrintWriter output;
 	
+	/*
+	 * Getters and Setters
+	 */
 	public void setSocket(Socket socket) {
 		this.socket = socket;
 	}
@@ -30,6 +33,10 @@ public class ClientHandler extends Thread {
 		return this.output;
 	}
 	
+	/**
+	 * Constructor for the Client Handlers
+	 * @param socket
+	 */
 	public ClientHandler(Socket socket) {
 		setSocket(socket);
 		try {
@@ -40,6 +47,9 @@ public class ClientHandler extends Thread {
 		}
 	}
 	
+	/**
+	 * Method that takes input from the client
+	 */
 	@SuppressWarnings("resource")
 	public void run() {
 		while(true) {
