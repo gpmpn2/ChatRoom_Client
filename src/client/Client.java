@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ConnectException;
 import java.net.Socket;
-import java.util.Scanner;
 
 import handlers.ClientHandler;
 
@@ -49,9 +48,16 @@ public class Client {
 	}
 
 	private void createConnection() throws IOException {
-		setSocket(new Socket(HOST, PORT));
-		setInput(new BufferedReader(new InputStreamReader(getSocket().getInputStream())));
+		try {
+			setSocket(new Socket(HOST, PORT));
+		} catch (ConnectException ce) {
+			System.out.println("[Server] Chat Room is currently full!");
+			return;
+		}
 		
+		setInput(new BufferedReader(new InputStreamReader(getSocket().getInputStream())));
+
+		System.out.println("[Server] If no response after 3 seconds, the Chat Room is full!");
 		System.out.println(getInput().readLine());
 		
 		ClientHandler connection = new ClientHandler(getSocket());
@@ -62,7 +68,7 @@ public class Client {
 				String message = getInput().readLine();
 				
 				if (message != null) {
-					System.out.println(message + "\n>");
+					System.out.print(message + "\n> ");
 				}
 			} catch (IOException io) {
 				System.err.println("[Error] Failed to read input.");

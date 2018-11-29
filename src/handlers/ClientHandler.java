@@ -1,10 +1,8 @@
 package handlers;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.LinkedList;
 import java.util.Scanner;
 
 /**
@@ -42,9 +40,10 @@ public class ClientHandler extends Thread {
 		}
 	}
 	
+	@SuppressWarnings("resource")
 	public void run() {
 		while(true) {
-			System.out.println(">");
+			System.out.print("> ");
 				
 			Scanner scanner = new Scanner(System.in);
 			String input = scanner.nextLine();
